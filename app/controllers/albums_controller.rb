@@ -63,7 +63,7 @@ class AlbumsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_album
-    @album = album.find(params[:id])
+    @album = Album.find(params[:id])
   end
 
   def ensure_frame_response
@@ -72,6 +72,12 @@ class AlbumsController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:name, :cover_image, tracks_attributes: %i[id title artist duration _destroy])
+    params
+      .require(:album)
+      .permit(
+        :name,
+        :cover_image,
+        tracks_attributes: %i[id title artist duration _destroy]
+      )
   end
 end

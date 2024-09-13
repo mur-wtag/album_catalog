@@ -21,4 +21,8 @@ class Album < ApplicationRecord
   def published?
     published
   end
+
+  def total_album_duration
+    tracks.sum(:duration)
+  end
 end
