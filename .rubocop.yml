@@ -1,0 +1,46 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "db/seeds.rb"
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "bin/*"
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - "test/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/routes.rb"
+    - "config/environments/*"
+    - "spec/**/*.rb"
+
+Metrics/ClassLength:
+  Max: 300
+  Exclude:
+    - "test/**/*"
+    - "spec/swagger_docs/*.rb"
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "app/factories/**/*.rb"
+    - "db/seeds/**/*.rb"
+    - "spec/swagger_docs/*.rb"
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/AsciiComments:
+  AllowedChars:
+    - ©
+    - €
+
+Style/Documentation:
+  Enabled: false

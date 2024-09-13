@@ -1,0 +1,53 @@
+<%= form_with(model: album, class: "contents") do |form| %>
+  <% if album.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
+
+      <ul>
+        <% album.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+    <div class="col-span-1">
+      <div class="max-w-xl">
+        <label
+          for="album_cover_image"
+          class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+        <span class="flex items-center space-x-2">
+          <span class="font-sm text-gray-600">
+            Drop cover, or <span class="text-blue-600 underline">browse</span>
+          </span>
+        </span>
+          <input type="file" name="album[cover_image]" id="album_cover_image" class="hidden">
+        </label>
+      </div>
+    </div>
+    <div class="col-span-3 flex items-center">
+      <%= form.text_field :name, placeholder: 'Album name', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+    </div>
+  </div>
+
+  <hr class="h-0.5 bg-gray-200 mx-auto my-4 bg-opacity-30">
+
+  <div class="px-4" data-controller="track">
+    <div class="tracks-list overflow-y-scroll max-h-80" data-track-target="trackList">
+      <%= form.fields_for :tracks do |track_form| %>
+        <div class="track-item grid grid-cols-1 md:grid-cols-4 gap-1" data-track-target="trackItem">
+          <%= track_form.text_field :title, placeholder: 'Track Title', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-4" %>
+          <%= track_form.text_field :artist, placeholder: 'Artist Name', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-3" %>
+          <%= track_form.number_field :duration, placeholder: 'Duration (min)', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-2" %>
+          <%#= link_to 'Remove', track_form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500 col-span-1' %>
+        </div>
+      <% end %>
+    </div>
+    <%= link_to '+ Add Track', 'javascript:void(0)', class: "font-semibold", data: { track_target: "addTrackButton" } %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit "Save", class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600 cursor-pointer" %>
+  </div>
+<% end %>

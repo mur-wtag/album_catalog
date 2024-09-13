@@ -1,0 +1,20 @@
+# PostgreSQL. Versions 9.1 and up are supported.
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: album_catalog
+
+test:
+  <<: *default
+  database: album_catalog_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>

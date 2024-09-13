@@ -1,0 +1,16 @@
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-3xl font-bold">Albums</h1>
+  <%= button_to 'New post',
+                new_album_path,
+                method: :get,
+                data: { turbo_frame: 'modal' },
+                class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600" %>
+</div>
+
+<div class="grid grid-cols-1">
+  <% @albums.each do |album| %>
+    <%= render album %>
+  <% end %>
+
+  <%= render partial: "shared/empty_state", locals: { type: "album" } if @albums.blank? %>
+</div>

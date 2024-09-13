@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Album Catalog</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= turbo_frame_tag "modal" %>
+    <main class="container max-w-screen-lg mx-auto mt-28 px-5">
+      <div class="flex w-full justify-between mb-5">
+        <h1 class="flex items-center text-5xl font-extrabold">Album Catalog</h1>
+        <div class="items-center flex">
+          <% if signed_in? %>
+            Signed in as: <span class="ml-2 text-blue-500 mr-2"><%= current_user.email %></span> |
+            <%= button_to 'Sign out', sign_out_path, method: :delete, class: "ml-2 font-medium" %>
+          <% else %>
+            <%= link_to 'Sign in', sign_in_path, class: "font-medium mr-2" %> |
+            <%= link_to 'Sign Up', sign_up_path, class: "font-medium ml-2 " %>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'shared/flash' %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

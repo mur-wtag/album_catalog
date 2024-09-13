@@ -1,0 +1,54 @@
+<div data-controller="modal" data-modal-target="modal" data-action="turbo:submit-end->modal#submitEnd keyup@window->modal#closeWithKeyboard click@window->modal#closeBackground" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full bg-black bg-opacity-30">
+  <div class="flex items-center justify-center min-h-screen px-4 py-16 w-full">
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl w-1/2 max-w-screen-sm sm:min-w-fit">
+      <div class="px-6 py-4 relative">
+        <div class="absolute top-4 right-4">
+          <button name="button" type="button" data-action="modal#hideModal" class="right-3 top-3">
+            <svg fill="#000000" height="16px" width="16px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490 490" xml:space="preserve">
+              <polygon points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490   489.292,457.678 277.331,245.004 489.292,32.337 "></polygon>
+            </svg>
+          </button>          </div>
+        <h2 class="text-lg font-semibold mb-4">New Album</h2>
+        <div id="modal-content">
+
+          <form class="contents" action="/albums" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="yzAbxCLeVvDaY7hOmzEco8aWgQcT90f482mU_SP2u1t5wCcuNNhqoYo0fcM5LhjyiJ_jNpO0d3ZZT3syZTH9qw" autocomplete="off">
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <div class="max-w-xl">
+                  <label for="album_cover_image" class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+        <span class="flex items-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          <span class="font-medium text-gray-600">
+            Drop files to Attach, or <span class="text-blue-600 underline">browse</span>
+          </span>
+        </span>
+                    <input type="file" name="album[cover_image]" id="album_cover_image" class="hidden">
+                  </label>
+                </div>
+              </div>
+              <div class="col-span-3 flex items-center">
+                <input placeholder="Album name" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 w-full" type="text" name="album[name]" id="album_name">
+              </div>
+            </div>
+
+            <hr class="h-0.5 bg-gray-200 mx-auto mt-4 bg-opacity-30">
+
+            <div class="px-4" data-controller="track">
+              <div class="tracks-list" data-track-target="trackList">
+              </div>
+              <a data-track-target="addTrackButton" href="javascript:void(0)">Add Track</a>
+            </div>
+
+            <div class="flex justify-end pb-2 border-b-2 mb-2">
+              <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Save">
+              <a class="btn btn-secondary" href="/albums">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

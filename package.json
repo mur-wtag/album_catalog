@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "cypress": "^13.9.0"
+  },
+  "scripts": {
+    "cypress": "bin/rails db:seed:reset && cypress open",
+    "cypress:ci": "bin/rails db:seed:reset && LETTER_OPENER=true bin/rails server -d && cypress run"
+  },
+  "engines": {
+    "node": "20.17.0"
+  },
+  "dependencies": {
+    "@rails/actiontext": "^7.2.100",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-cypress": "^2.15.1",
+    "eslint-plugin-disallow-methods": "^0.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "pubsub-js": "^1.9.4"
+  }
+}
