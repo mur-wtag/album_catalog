@@ -1,17 +1,31 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["addTrackButton", "removeTrackButton", "trackItem", "trackList"]
+  static targets = [
+    "addTrackButton",
+    "removeTrackButton",
+    "trackItem",
+    "trackList",
+  ];
 
   connect() {
-    this.addTrackButtonTarget.addEventListener('click', this.addNewTrackForm)
+    this.addTrackButtonTarget.addEventListener("click", this.addNewTrackForm);
     this.bindRemoveTrackForm();
   }
 
   addNewTrackForm = () => {
-    const newTrackForm = document.createElement('div');
-    newTrackForm.classList.add('track-item', 'grid', 'grid-cols-1', 'md:grid-cols-10', 'gap-1', 'pb-2', 'border-b-2', 'mb-2');
-    newTrackForm.setAttribute('data-track-target', 'trackItem');
+    const newTrackForm = document.createElement("div");
+    newTrackForm.classList.add(
+      "track-item",
+      "grid",
+      "grid-cols-1",
+      "md:grid-cols-10",
+      "gap-1",
+      "pb-2",
+      "border-b-2",
+      "mb-2",
+    );
+    newTrackForm.setAttribute("data-track-target", "trackItem");
 
     newTrackForm.innerHTML = `
       <input type="text" name="album[tracks_attributes][${this.trackItemTargets.length}][title]" placeholder="Track Title" class="shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-4">
@@ -23,22 +37,24 @@ export default class extends Controller {
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
         </svg>
       </a>
-    `
+    `;
     this.trackListTarget.appendChild(newTrackForm);
     this.trackListTarget.scrollTop = this.trackListTarget.scrollHeight;
 
-    newTrackForm.querySelector('.remove-track').addEventListener('click', this.removeTrackForm);
-  }
+    newTrackForm
+      .querySelector(".remove-track")
+      .addEventListener("click", this.removeTrackForm);
+  };
 
   removeTrackForm = (e) => {
-    const trackItem = e.currentTarget.closest('.track-item');
-    trackItem.classList.add('hidden');
-    trackItem.querySelector('.destroy-checkbox').checked = true;
-  }
+    const trackItem = e.currentTarget.closest(".track-item");
+    trackItem.classList.add("hidden");
+    trackItem.querySelector(".destroy-checkbox").checked = true;
+  };
 
   bindRemoveTrackForm = () => {
-    this.removeTrackButtonTargets.forEach(removeTrackButtonTarget => {
-      removeTrackButtonTarget.addEventListener('click', this.removeTrackForm);
-    })
-  }
+    this.removeTrackButtonTargets.forEach((removeTrackButtonTarget) => {
+      removeTrackButtonTarget.addEventListener("click", this.removeTrackForm);
+    });
+  };
 }

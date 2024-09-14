@@ -7,9 +7,9 @@ Just `bundle`
 $ bundle
 ```
 
-To run Cypress E2E tests, runn:
+To run Cypress E2E tests, run:
 ```shell
-$ bin/yarn install
+$ yarn install
 ```
 
 ### Running the project
@@ -42,10 +42,10 @@ To check your code locally you can run:
 
 ```sh
 Show issues:
-bin/yarn eslint [FOLDER_NAME]
+yarn eslint [FOLDER_NAME]
 
 Apply automatic fixes:
-bin/yarn eslint --fix [FOLDER_NAME]
+yarn eslint --fix [FOLDER_NAME]
 ```
 
 ### End-to-end tests
@@ -62,6 +62,5 @@ On each commit being pushed to the repo we're running a CI workflow defined in `
 
 ## Deployment
 Continuous deployment done in Heroku!
-You can find the production deployment here: https://dog-img-0f3182610707.herokuapp.com/
 
 Cheers!

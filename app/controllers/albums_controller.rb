@@ -25,27 +25,29 @@ class AlbumsController < ApplicationController
   def edit; end
 
   # album /albums or /albums.json
+  # rubocop:disable Metrics/AbcSize
   def create
     @album = Album.new(album_params)
     @album.created_by = current_user
 
     respond_to do |format|
       if @album.save
-        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, "") }
-        format.html { redirect_to album_url(@album), notice: "Album was successfully created." }
+        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, '') }
+        format.html { redirect_to album_url(@album), notice: 'Album was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, "") }
-        format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, '') }
+        format.html { redirect_to album_url(@album), notice: 'Album was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @album.errors, status: :unprocessable_entity }
@@ -58,7 +60,7 @@ class AlbumsController < ApplicationController
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album was successfully destroyed." }
+      format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,7 +69,7 @@ class AlbumsController < ApplicationController
     @album.publish!
 
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album published successfully." }
+      format.html { redirect_to albums_url, notice: 'Album published successfully.' }
     end
   end
 
