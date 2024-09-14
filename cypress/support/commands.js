@@ -26,23 +26,23 @@
 
 var DB_SEED_TIMEOUT = 5000;
 
-Cypress.Commands.add('reseed', timeout => {
-  cy.exec('bundle exec rails db:seed', {
-    timeout: timeout || DB_SEED_TIMEOUT
+Cypress.Commands.add("reseed", (timeout) => {
+  cy.exec("bundle exec rails db:seed", {
+    timeout: timeout || DB_SEED_TIMEOUT,
   });
 });
 
-Cypress.Commands.add('login', (email, password) => {
-  cy.request('post', 'session_without_csrf', {
+Cypress.Commands.add("login", (email, password) => {
+  cy.request("post", "session_without_csrf", {
     session: {
       email: email,
-      password: password
-    }
+      password: password,
+    },
   });
-  cy.getCookie('remember_token').should('exist');
+  cy.getCookie("remember_token").should("exist");
 });
 
-Cypress.Commands.add('logout', () => {
-  cy.request('delete', 'session_without_csrf');
-  cy.getCookie('remember_token').should('not.exist');
+Cypress.Commands.add("logout", () => {
+  cy.request("delete", "session_without_csrf");
+  cy.getCookie("remember_token").should("not.exist");
 });
