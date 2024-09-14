@@ -57,12 +57,11 @@ RSpec.describe Album, type: :model do
 
   describe '#total_album_duration' do
     let(:album) { create(:album) }
-    let!(:track1) { create(:track, album: album, duration: 180) } # 3 minutes
-    let!(:track2) { create(:track, album: album, duration: 240) } # 4 minutes
+    let!(:track1) { create(:track, album:, duration: 180) } # 3 minutes
+    let!(:track2) { create(:track, album:, duration: 240) } # 4 minutes
 
     it 'returns the total duration of all tracks in the album' do
       expect(album.total_album_duration).to eq(420) # 7 minutes in seconds
     end
   end
 end
-

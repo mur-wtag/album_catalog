@@ -4,7 +4,7 @@ class UserFactory
   def self.build(attributes = {})
     User.new({
       email: "user_#{(Time.now.to_f * 1000).to_i}@example.com",
-      password: "password",
+      password: 'password'
     }.merge(attributes))
   end
 

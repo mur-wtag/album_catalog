@@ -3,7 +3,7 @@
 class AlbumFactory
   def self.build(attributes = {})
     Album.new({
-      name: "Album #{(Time.now.to_f * 1000).to_i}",
+      name: "Album #{(Time.now.to_f * 1000).to_i}"
     }.merge(attributes))
   end
 
