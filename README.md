@@ -1,15 +1,34 @@
 # Album Catalog
+An album catalog for the music professionals
 
-## Steup
+## Features
+- User can sign up using email add password
+- Singed in user can create Album with `cover image`, `title`, `multiple tracks` (in track user can define `track name`, `artist name`, `duration for the track in seconds`)
+- Signed in user can `edit`, `destroy` the album (user who created the album)
+- Signed in user can `publish` the album, once the album get published it cannot be be modified
+- Album listing page have `pagination`, each page should have 10 albums
+- Guest users only can `view` the `published` albums
 
-Just `bundle`
+## Setup
+
+Just `bundle` ruby gems (make sure dependent `ruby` version is installed in your system)
 ```shell
 $ bundle
 ```
 
-To run Cypress E2E tests, run:
+Yarn all js libraries (make sure dependent `node` is installed in your system)
 ```shell
 $ yarn install
+```
+
+Create database using:
+```shell
+$ bin/rails db:create db:migrate
+```
+
+You can load the application with seed data if you want, please use:
+```shell
+$ bin/rails db:seed
 ```
 
 ### Running the project
