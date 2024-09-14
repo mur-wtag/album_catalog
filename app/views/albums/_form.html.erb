@@ -26,12 +26,12 @@
         </label>
 
         <div class="flex items-center space-x-2">
-          <span class="text-sm text-gray-600" data-album-target="uploadText"><%= form.object.cover_image.attached? ? 'Change' : 'Add' %> cover</span>
+          <span class="text-sm text-gray-600" data-album-target="uploadText" data-cy="upload-cover-text"><%= form.object.cover_image.attached? ? 'Change' : 'Add' %> cover</span>
         </div>
       </div>
     </div>
     <div class="col-span-3 flex items-center">
-      <%= form.text_field :name, placeholder: 'Album name', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+      <%= form.text_field :name, placeholder: 'Album name', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 w-full", data: { cy: 'album-name-input' } %>
     </div>
   </div>
 
@@ -40,12 +40,12 @@
   <div class="px-4" data-controller="track">
     <div class="tracks-list overflow-y-scroll max-h-80" data-track-target="trackList">
       <%= form.fields_for :tracks do |track_form| %>
-        <div class="track-item grid grid-cols-1 md:grid-cols-10 gap-1 pb-2 border-b-2 mb-2" data-track-target="trackItem">
+        <div class="track-item grid grid-cols-1 md:grid-cols-10 gap-1 pb-2 border-b-2 mb-2" data-track-target="trackItem" data-cy="track-item">
           <%= track_form.text_field :title, placeholder: 'Track Title', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-4" %>
           <%= track_form.text_field :artist, placeholder: 'Artist Name', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-3" %>
           <%= track_form.number_field :duration, placeholder: 'Duration (sec)', class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 col-span-2" %>
           <%= track_form.check_box :_destroy, class: "hidden destroy-checkbox" %>
-          <a class="remove-track col-span-1 flex justify-center items-center" data-track-target="removeTrackButton" href="javascript:void(0)">
+          <a class="remove-track col-span-1 flex justify-center items-center" data-track-target="removeTrackButton" href="javascript:void(0)" data-cy="remove-track">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
               <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -54,10 +54,10 @@
         </div>
       <% end %>
     </div>
-    <%= link_to '+ Add Track', 'javascript:void(0)', class: "font-semibold", data: { track_target: "addTrackButton" } %>
+    <%= link_to '+ Add Track', 'javascript:void(0)', class: "font-semibold", data: { track_target: "addTrackButton", cy: "add-track-button" } %>
   </div>
 
   <div class="flex justify-end">
-    <%= form.submit "Save", class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600 cursor-pointer" %>
+    <%= form.submit "Save", class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600 cursor-pointer", data: { cy: "submit-album" } %>
   </div>
 <% end %>

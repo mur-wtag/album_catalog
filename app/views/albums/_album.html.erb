@@ -1,29 +1,34 @@
-<div class="bg-white rounded-lg shadow-md p-4 border-2 border-gray-200 mb-4">
+<div class="bg-white rounded-lg shadow-md p-4 border-2 border-gray-200 mb-4" data-cy="album-<%= album.id %>">
   <div class="flex justify-between">
     <div class="flex">
       <div class="border min-w-48 max-w-48 min-h-48 max-h-48 mr-4 flex justify-center items-center"><%= album.cover_image.attached? ? image_tag(album.cover_image) : 'No Cover' %></div>
       <div class="flex flex-col justify-center">
-        <h2 class="text-2xl font-semibold"><%= album.name %></h2>
+        <h2 class="text-2xl font-semibold" data-cy="alb-title-<%= album.id %>"><%= album.name %></h2>
         <div class=""><%= duration_string(album.total_album_duration) %></div>
       </div>
     </div>
     <div class="flex items-start justify-end">
       <div class="flex">
         <% if album.published? %>
-          <i>Published on <%= l album.published_at %></i>
+          <i data-cy="publish-text-<%= album.id %>">Published on <%= l album.published_at %></i>
         <% else %>
           <%= link_to "Publish", publish_album_path(album), class: "font-medium mr-2" , data: {
             turbo_method: :post,
-            turbo_confirm: "Are you sure?"
+            turbo_confirm: "Are you sure?",
+            cy: "publish-#{album.id}"
           } if AlbumPolicy.new(current_user, album).publish? %> |
           <%= button_to 'Edit',
                         edit_album_path(album),
                         method: :get,
                         class: "font-medium ml-2 mr-2",
-                        data: { turbo_frame: 'modal' } if AlbumPolicy.new(current_user, album).edit? %> |
+                        data: {
+                          turbo_frame: 'modal',
+                          cy: "edit-#{album.id}"
+                        } if AlbumPolicy.new(current_user, album).edit? %> |
           <%= link_to "Delete", album, class: "font-medium ml-2", data: {
             turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
+            turbo_confirm: "Are you sure?",
+            cy: "delete-#{album.id}"
           } if AlbumPolicy.new(current_user, album).destroy? %>
         <% end %>
       </div>
@@ -34,7 +39,7 @@
   <% album.tracks.each_with_index do |track, index| %>
     <div class="track flex mx-4 justify-between <%= 'border-b-2' if index + 1 != album.tracks.count %>">
       <div>
-        <div><h2 class="text-l font-semibold"><%= track.title %></h2></div>
+        <div><h2 class="text-l font-semibold" data-cy="track-<%= track.id %>-title"><%= track.title %></h2></div>
         <div class="text-slate-500"><%= track.artist %></div>
       </div>
       <div class="flex justify-center items-center"><%= duration_string track.duration %></div>

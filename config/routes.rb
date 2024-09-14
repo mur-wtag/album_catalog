@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   end
 
   root to: 'albums#index'
+
+  if Rails.env.development? || Rails.env.test?
+    post 'session_without_csrf', to: 'sessions#create_without_csrf'
+    delete 'session_without_csrf', to: 'sessions#destroy_without_csrf'
+  end
 end

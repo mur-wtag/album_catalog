@@ -105,6 +105,10 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    database_cleaner-active_record (2.2.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -121,6 +125,11 @@ GEM
       syntax_tree (~> 6.0)
     erubi (1.12.0)
     erubis (2.7.0)
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     ffi (1.17.0)
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
@@ -186,6 +195,11 @@ GEM
       nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (3.1.2)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
     racc (1.7.3)
     rack (2.2.9)
     rack-attack (6.7.0)
@@ -211,6 +225,10 @@ GEM
       activesupport (= 7.1.4)
       bundler (>= 1.15.0)
       railties (= 7.1.4)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -274,6 +292,8 @@ GEM
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
     sexp_processor (4.17.1)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -291,7 +311,6 @@ GEM
     tailwindcss-rails (2.6.0-x86_64-linux)
       railties (>= 7.0.0)
     thor (1.3.1)
-    timecop (0.9.8)
     timeout (0.4.1)
     turbo-rails (2.0.5)
       actionpack (>= 6.0.0)
@@ -300,7 +319,6 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    vcr (6.2.0)
     view_component (3.12.1)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -328,27 +346,30 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   clearance
+  database_cleaner-active_record
   debug
   dotenv-rails (~> 2.5)
   erb-formatter
+  factory_bot_rails
   importmap-rails
   pg (~> 1.1)
   pre-commit
   pry (~> 0.14.1)
   puma (~> 5.0)
   pundit (~> 2.4)
+  pundit-matchers (~> 3.1)
   rack-attack (~> 6.7.0)
   rails (~> 7.1.2)
+  rails-controller-testing
   rails_best_practices
   rspec-rails (~> 6.1.0)
   rubocop (= 1.39)
+  shoulda-matchers (~> 6.0)
   sprockets-rails
   stimulus-rails
   tailwindcss-rails (~> 2.0)
-  timecop
   turbo-rails
   tzinfo-data
-  vcr
   view_component
   web-console
   webmock

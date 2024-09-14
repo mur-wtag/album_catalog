@@ -36,12 +36,15 @@ group :development do
   gem 'web-console'
 end
 
-group :test do
-  gem 'timecop'
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'webmock'
 end
 
-group :development, :test do
-  gem 'rspec-rails', '~> 6.1.0'
-  gem 'vcr'
-  gem 'webmock'
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'pundit-matchers', '~> 3.1'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 6.0'
 end

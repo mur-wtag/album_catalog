@@ -1,9 +1,12 @@
 <div class="flex justify-between items-center mb-4">
   <h1 class="text-3xl font-bold">Albums</h1>
-  <%= button_to 'New post',
+  <%= button_to 'New album',
                 new_album_path,
                 method: :get,
-                data: { turbo_frame: 'modal' },
+                data: {
+                  turbo_frame: 'modal',
+                  cy: 'new-album'
+                },
                 class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600"  if AlbumPolicy.new(current_user, nil).new? %>
 </div>
 
