@@ -4,8 +4,9 @@ class Album < ApplicationRecord
   has_one_attached :cover_image
 
   has_many :tracks, dependent: :destroy
-  accepts_nested_attributes_for :tracks, allow_destroy: true
+  belongs_to :created_by, class_name: :User, optional: true
 
+  accepts_nested_attributes_for :tracks, allow_destroy: true
   validates :name, presence: true
 
   scope :published, -> { where.not(published_at: nil) }

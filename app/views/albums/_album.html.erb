@@ -9,16 +9,23 @@
     </div>
     <div class="flex items-start justify-end">
       <div class="flex">
-        <%= link_to "Publish", 'javascript:void(0)', class: "font-medium mr-2" %> |
-        <%= button_to 'Edit',
-                      edit_album_path(album),
-                      method: :get,
-                      class: "font-medium ml-2 mr-2",
-                      data: { turbo_frame: 'modal' } %> |
-        <%= link_to "Delete", album, class: "font-medium ml-2", data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?"
-        } %>
+        <% if album.published? %>
+          <i>Published on <%= l album.published_at %></i>
+        <% else %>
+          <%= link_to "Publish", publish_album_path(album), class: "font-medium mr-2" , data: {
+            turbo_method: :post,
+            turbo_confirm: "Are you sure?"
+          } if AlbumPolicy.new(current_user, album).publish? %> |
+          <%= button_to 'Edit',
+                        edit_album_path(album),
+                        method: :get,
+                        class: "font-medium ml-2 mr-2",
+                        data: { turbo_frame: 'modal' } if AlbumPolicy.new(current_user, album).edit? %> |
+          <%= link_to "Delete", album, class: "font-medium ml-2", data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } if AlbumPolicy.new(current_user, album).destroy? %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@
                 new_album_path,
                 method: :get,
                 data: { turbo_frame: 'modal' },
-                class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600" %>
+                class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600"  if AlbumPolicy.new(current_user, nil).new? %>
 </div>
 
 <div class="grid grid-cols-1">
@@ -14,3 +14,4 @@
 
   <%= render partial: "shared/empty_state", locals: { type: "album" } if @albums.blank? %>
 </div>
+<%= will_paginate @albums %>

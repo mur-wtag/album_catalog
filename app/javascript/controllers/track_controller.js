@@ -31,7 +31,9 @@ export default class extends Controller {
   }
 
   removeTrackForm = (e) => {
-    e.currentTarget.closest('.track-item').remove();
+    const trackItem = e.currentTarget.closest('.track-item');
+    trackItem.classList.add('hidden');
+    trackItem.querySelector('.destroy-checkbox').checked = true;
   }
 
   bindRemoveTrackForm = () => {

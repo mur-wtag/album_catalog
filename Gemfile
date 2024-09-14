@@ -10,6 +10,7 @@ gem 'clearance'
 gem 'importmap-rails'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
+gem 'pundit', '~> 2.4'
 gem 'rack-attack', '~> 6.7.0'
 gem 'rails', '~> 7.1.2'
 gem 'sprockets-rails'
@@ -18,6 +19,7 @@ gem 'tailwindcss-rails', '~> 2.0'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'view_component'
+gem 'will_paginate', '~> 4.0'
 
 
 group :development, :test do
