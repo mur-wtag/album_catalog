@@ -1,4 +1,4 @@
-# Album Catalog
+# Album Catalog ![main](https://github.com/mur-wtag/album_catalog/actions/workflows/main.yml/badge.svg?branch=main)
 An album catalog for the music professionals
 
 ## Features
