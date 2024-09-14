@@ -26,12 +26,12 @@ jobs:
       - name: Rubocop linting
         run: bin/bundle exec rubocop
       - name: Yarn install
-        run: bin/yarn install
+        run: yarn install
       - name: ESLint
         run: |
-            bin/yarn eslint app
-            bin/yarn eslint cypress
-            bin/yarn eslint config/tailwind.config.js
+            yarn eslint app
+            yarn eslint cypress
+            yarn eslint config/tailwind.config.js
   tests:
     name: RSpec
     needs: code-linting
