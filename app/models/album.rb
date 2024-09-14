@@ -8,18 +8,14 @@ class Album < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :published, -> { where(published: true) }
+  scope :published, -> { where.not(published_at: nil) }
 
   def publish!
-    update!(published: true)
-  end
-
-  def unpublish!
-    update!(published: false)
+    update!(published_at: Time.zone.now)
   end
 
   def published?
-    published
+    published_at.present?
   end
 
   def total_album_duration

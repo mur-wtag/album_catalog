@@ -6,7 +6,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums or /albums.json
   def index
-    @albums = Album.all
+    @albums = Album.all.order(published_at: :desc, created_at: :desc)
   end
 
   # GET /albums/1 or /albums/1.json
@@ -25,7 +25,7 @@ class AlbumsController < ApplicationController
     @album = Album.new(album_params)
     respond_to do |format|
       if @album.save
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend('albums', partial: 'albums/album', locals: { album: @album }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, "") }
         format.html { redirect_to album_url(@album), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
@@ -39,7 +39,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@album, partial: "albums/album", locals: { album: @album }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, "") }
         format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
         format.json { render :show, status: :ok, location: @album }
       else
