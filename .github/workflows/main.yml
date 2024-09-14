@@ -113,8 +113,3 @@ jobs:
           start: bundle exec rails s
           wait-on: 'http://localhost:3000'
           browser: chrome
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
