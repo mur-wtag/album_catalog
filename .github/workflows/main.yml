@@ -1,0 +1,121 @@
+env:
+  RUBY_VERSION: 3.1.2
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: assess_test
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/assess_test
+  BUNDLER_CACHE_VERSION: 0
+
+name: Linting and tests
+on: push
+jobs:
+  code-linting:
+    name: Code linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+          cache-version: ${{ env.BUNDLER_CACHE_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Rubocop linting
+        run: bin/bundle exec rubocop
+      - name: Yarn install
+        run: bin/yarn install
+      - name: ESLint
+        run: |
+            bin/yarn eslint app
+            bin/yarn eslint cypress
+            bin/yarn eslint config/tailwind.config.js
+  tests:
+    name: RSpec
+    needs: code-linting
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+          cache-version: ${{ env.BUNDLER_CACHE_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Create database
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
+      - name: Run tests
+        run: bundle exec rspec
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+  integration-tests:
+    name: Cypress
+    needs: code-linting
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+          cache-version: ${{ env.BUNDLER_CACHE_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Create database
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: bundle exec rails s
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
