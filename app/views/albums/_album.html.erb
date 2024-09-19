@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg shadow-md p-4 border-2 border-gray-200 mb-4" data-cy="album-<%= album.id %>">
+<div class="bg-white rounded-lg shadow-md p-4 border-2 border-gray-200 mb-4" id="<%= dom_id album %>" data-cy="album-<%= album.id %>">
   <div class="flex justify-between">
     <div class="flex">
       <div class="border min-w-48 max-w-48 min-h-48 max-h-48 mr-4 flex justify-center items-center"><%= album.cover_image.attached? ? image_tag(album.cover_image) : 'No Cover' %></div>

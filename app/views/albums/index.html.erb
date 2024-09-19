@@ -10,7 +10,7 @@
                 class: "bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-600"  if AlbumPolicy.new(current_user, nil).new? %>
 </div>
 
-<div class="grid grid-cols-1">
+<div id="albums" class="grid grid-cols-1">
   <% @albums.each do |album| %>
     <%= render album %>
   <% end %>

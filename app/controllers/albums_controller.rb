@@ -32,7 +32,25 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, '') }
+        flash.now[:notice] = "#{@album.name} was successfully created."
+        # to refresh whole list
+        # format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, '') }
+
+        # To make flash message work in turbo, I have followed these solutions (I know it's not kind of good practice)
+        # TODO: move flash messages in JS
+        # https://discuss.hotwired.dev/t/flash-messages-with-turbo/2345/14
+        # https://hivekind.com/blog/exploring-flash-messages-with-turbo-streams-in-rails-7
+
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend(
+              'albums',
+              partial: 'albums/album',
+              locals: { album: @album }
+            ),
+            turbo_stream.replace('flash', partial: 'application/flash')
+          ]
+        end
         format.html { redirect_to album_url(@album), notice: 'Album was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +64,18 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.action(:refresh, '') }
+        flash.now[:notice] = "#{@album.name} was successfully updated."
+
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(
+              @album,
+              partial: 'albums/album',
+              locals: { album: @album }
+            ),
+            turbo_stream.replace('flash', partial: 'application/flash')
+          ]
+        end
         format.html { redirect_to album_url(@album), notice: 'Album was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
