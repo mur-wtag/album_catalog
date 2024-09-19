@@ -61,6 +61,7 @@ class AlbumsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # PATCH/PUT /albums/1 or /albums/1.json
+  # rubocop:disable Metrics/AbcSize
   def update
     respond_to do |format|
       if @album.update(album_params)
@@ -83,6 +84,7 @@ class AlbumsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /albums/1 or /albums/1.json
   def destroy
