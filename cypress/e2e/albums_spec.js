@@ -94,7 +94,7 @@ describe("Albums", () => {
 
   it("publishes album from the album list", () => {
     cy.login("user@example.com", "password");
-    cy.intercept("POST", "/albums/*/publish").as("publishAlbum");
+    cy.intercept("POST", "/publications/albums/*").as("publishAlbum");
 
     cy.visit("/");
     cy.get('[data-cy="publish-text-1"]').should("not.exist");
