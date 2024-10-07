@@ -109,14 +109,4 @@ RSpec.describe AlbumsController, type: :controller do
       expect(flash[:notice]).to eq('Album was successfully destroyed.')
     end
   end
-
-  describe 'PATCH #publish' do
-    it 'publishes the album and redirects to index' do
-      patch :publish, params: { id: album.id }
-      album.reload
-      expect(album.published_at).to be_present
-      expect(response).to redirect_to(albums_url)
-      expect(flash[:notice]).to eq('Album published successfully.')
-    end
-  end
 end

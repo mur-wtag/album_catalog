@@ -2,9 +2,10 @@
 
 Rails.application.routes.draw do
   resources :albums, only: %i[index new create edit update destroy] do
-    member { post :publish }
     resources :tracks, only: %i[index new edit update destroy]
   end
+
+  post 'publications/albums/:album_id', to: 'publications#create', as: 'publications'
 
   root to: 'albums#index'
 

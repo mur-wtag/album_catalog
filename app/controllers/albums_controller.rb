@@ -2,10 +2,9 @@
 
 class AlbumsController < ApplicationController
   before_action :require_login, except: :index
-  before_action :set_album, only: %i[show edit update destroy publish]
+  before_action :set_album, only: %i[show edit update destroy]
   before_action :ensure_frame_response, only: %i[new edit]
 
-  # GET /albums or /albums.json
   def index
     authorize :album, :index?
     scope = policy_scope(Album).includes(:tracks)
@@ -13,7 +12,6 @@ class AlbumsController < ApplicationController
                    .order(published_at: :asc, id: :desc)
   end
 
-  # GET /albums/1 or /albums/1.json
   def show; end
 
   # GET /albums/new
@@ -21,10 +19,8 @@ class AlbumsController < ApplicationController
     @album = Album.new
   end
 
-  # GET /albums/1/edit
   def edit; end
 
-  # album /albums or /albums.json
   # rubocop:disable Metrics/AbcSize
   def create
     @album = Album.new(album_params)
@@ -60,7 +56,6 @@ class AlbumsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # PATCH/PUT /albums/1 or /albums/1.json
   # rubocop:disable Metrics/AbcSize
   def update
     respond_to do |format|
@@ -86,21 +81,12 @@ class AlbumsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # DELETE /albums/1 or /albums/1.json
   def destroy
     @album.destroy
 
     respond_to do |format|
       format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
       format.json { head :no_content }
-    end
-  end
-
-  def publish
-    @album.publish!
-
-    respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'Album published successfully.' }
     end
   end
 

@@ -12,7 +12,7 @@
         <% if album.published? %>
           <i data-cy="publish-text-<%= album.id %>">Published on <%= l album.published_at %></i>
         <% else %>
-          <%= link_to "Publish", publish_album_path(album), class: "font-medium mr-2" , data: {
+          <%= link_to "Publish", publications_path(album), class: "font-medium mr-2" , data: {
             turbo_method: :post,
             turbo_confirm: "Are you sure?",
             cy: "publish-#{album.id}"
